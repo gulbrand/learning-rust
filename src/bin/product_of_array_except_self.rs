@@ -3,17 +3,31 @@ struct Solution;
 impl Solution {
     #[allow(dead_code)]
     pub fn product_except_self(nums: Vec<i32>) -> Vec<i32> {
-        let mut products: Vec<i32> = Vec::new();
-        for (i, _) in nums.iter().enumerate() {
-            let mut product = 1;
-            for j in 0..nums.len() {
-                if j != i {
-                    product *= nums[j];
-                }
-            }
-            products.push(product);
+        // Okay, let's do a 2-pass approach.
+        let mut products_moving_right: Vec<i32> = Vec::new();
+        let mut products_moving_left: Vec<i32> = Vec::new();
+        let mut running_product = 1;
+        for i in 0..nums.len() {
+            products_moving_right.push(running_product);
+            running_product *= nums[i];
         }
-        return products;
+
+        running_product = 1;
+        for i in (0..nums.len()).rev() {
+            products_moving_left.push(running_product);
+            running_product *= nums[i];
+        }
+
+        let right_range = (0..nums.len()).rev();
+        let left_range = 0..nums.len();
+        let mut answer: Vec<i32> = Vec::new();
+        for (right, left) in left_range.zip(right_range) {
+            answer.push(
+                products_moving_right[right] * products_moving_left[left]
+            );
+        }
+
+        return answer;
     }
 }
 
