@@ -1,6 +1,6 @@
 use std::cmp::Ordering;
-use std::convert::TryInto;
 
+#[allow(dead_code)]
 fn do_the_thing(data: &Vec<i32>) -> i32 {
     let a = data.as_slice();
     let mut bits: [i32; 32] = [0; 32];
@@ -54,7 +54,7 @@ mod tests {
         assert_eq!(expected, actual);
     }
 
-    //    #[test]
+    #[test]
     fn bit_test() {
         let number = 16;
         println!("{}", format!("{:b}", number));

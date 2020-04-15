@@ -1,3 +1,4 @@
+#[allow(dead_code)]
 fn smallest_window_to_sort_dumb(data: Vec<i32>) -> Result<(usize, usize), &'static str> {
     let a = data.as_slice();
 
@@ -54,7 +55,7 @@ fn smallest_window_to_sort_dumb(data: Vec<i32>) -> Result<(usize, usize), &'stat
     return Ok((min_window_left, min_window_right));
 }
 
-
+#[allow(dead_code)]
 fn smallest_window_to_sort(data: Vec<i32>)
                            -> Result<(usize, usize), &'static str> {
     let a = data.as_slice();

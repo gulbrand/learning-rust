@@ -6,6 +6,7 @@ struct Dataset {
 }
 
 impl Debug for Dataset {
+    #[allow(unused_must_use)]
     fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         f.write_str(self.key.as_str());
         f.write_str(self.version.as_str())

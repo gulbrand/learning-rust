@@ -6,7 +6,8 @@
 
 // first crack: map
 // if they contain the same characters and counts of each, it is a permutation of the other.
-fn is_permutation(s1: &str, s2: &str) -> bool {
+#[allow(dead_code)]
+fn is_permutation(_s1: &str, _s2: &str) -> bool {
     false
 }
 
@@ -14,6 +15,7 @@ fn is_permutation(s1: &str, s2: &str) -> bool {
 mod tests {
     use super::*;
 
+    #[allow(dead_code)]
     #[cfg(test)]
     fn test_that_empty_is_true() {
         let candidate1 = "";

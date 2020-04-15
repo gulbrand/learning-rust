@@ -1,7 +1,6 @@
 // given an array and a target value, find it.
 
-use std::slice::SliceIndex;
-
+#[allow(dead_code)]
 fn find_by_recursion(
     slice: &[i32],
     target_value: i32,
@@ -61,7 +60,7 @@ fn find_by_loop(
     Err("not found")
 }
 
-
+#[allow(unused_variables, dead_code)]
 fn find(
     slice: &[i32],
     target_value: i32,
@@ -172,7 +171,7 @@ mod tests {
             [2, 5].to_vec();
         let target_value = 0;
         let actual =
-            find(sample_data.as_slice(), 0,
+            find(sample_data.as_slice(), target_value,
                  0, sample_data.len());
         assert_eq!(actual, Err("not found"));
     }

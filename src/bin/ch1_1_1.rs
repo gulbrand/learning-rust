@@ -46,12 +46,14 @@ fn is_unique_via_sort(candidate: &str) -> bool {
     true
 }
 
+#[allow(dead_code)]
 fn is_unique_via_set(candidate: &str) -> bool {
-    let mut seen_chars: HashSet<char> = candidate.chars().into_iter().collect();
+    let seen_chars: HashSet<char> = candidate.chars().into_iter().collect();
     return seen_chars.len() == candidate.len();
 }
 
-fn is_unique_via_bloom_filter(candidate: &str) -> bool {
+#[allow(dead_code, unused_variables)]
+fn is_unique_via_bloom_filter(_candidate: &str) -> bool {
     true
 }
 

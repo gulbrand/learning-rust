@@ -1,6 +1,5 @@
 #[cfg(test)]
 mod simple_tests {
-    use super::*;
 
     #[test]
     fn simple_test() {

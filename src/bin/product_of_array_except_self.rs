@@ -1,6 +1,7 @@
 struct Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn product_except_self(nums: Vec<i32>) -> Vec<i32> {
         let mut products: Vec<i32> = Vec::new();
         for (i, _) in nums.iter().enumerate() {

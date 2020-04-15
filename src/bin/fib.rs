@@ -17,7 +17,7 @@ fn fib(n: usize) -> usize {
     let mut mem = vec![0; n];
     return fib_efficient(mem.as_mut_slice(), n);
 }
-
+#[allow(dead_code)]
 fn fib_inefficient(n: usize) -> usize {
     if n <= 1 {
         return n;
@@ -26,7 +26,7 @@ fn fib_inefficient(n: usize) -> usize {
 }
 
 #[cfg(test)]
-mod SimpleTests {
+mod simple_tests {
     use super::*;
 
     #[test]

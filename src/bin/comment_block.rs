@@ -7,9 +7,9 @@ struct CommentBlock {
     min_height: i16,
     min_width_pad: i16,
 }
-
+#[allow(dead_code)]
 fn generate_comment_block(comment_block: CommentBlock) -> String {
-    let mut result: String = comment_block.text;
+    let result: String = comment_block.text;
 
     let header =
         format!("/{}",

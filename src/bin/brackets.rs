@@ -1,3 +1,4 @@
+#[allow(dead_code)]
 fn is_correct(evidence: &str) -> bool {
     /*
      The basic idea here is to use a stack.
