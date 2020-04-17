@@ -8,14 +8,8 @@ impl Solution {
         let mut lo = 0;
         let mut hi = 0;
         for c in s.chars() {
-            lo += match c {
-                '(' => 1,
-                _ => -1
-            };
-            hi += match c {
-                ')' => -1,
-                _ => 1
-            };
+            lo += if c == '(' { 1 } else { -1 };
+            hi += if c == ')' { -1 } else { 1 };
             // hi should never go < 0, that indicates under-flow of previous opening left parens.
             if hi < 0 {
                 return false;
