@@ -1,43 +1,25 @@
+#[allow(unused)]
 struct Solution;
 
 impl Solution {
-    pub fn dfs_min_sum_of_path(
-        grid: &Vec<Vec<i32>>,
-        row: i32,
-        col: i32,
-        cache: &mut Vec<Vec<i32>>) -> i32 {
-        if row < 0 || col < 0 {
-            return std::i32::MAX;
-        }
-        if row == 0 && col == 0 {
-            return grid[row as usize][col as usize];
-        }
-        if cache[row as usize][col as usize] > 0 {
-            return cache[row as usize][col as usize];
-        }
-
-        let answer =
-            grid[row as usize][col as usize]
-                +
-                std::cmp::min(
-                    Solution::dfs_min_sum_of_path(grid, row - 1, col, cache),
-                    Solution::dfs_min_sum_of_path(grid, row, col - 1, cache));
-
-        cache[row as usize][col as usize] = answer;
-        answer
-    }
-
-    pub fn min_path_sum(grid: Vec<Vec<i32>>) -> i32 {
+    #[allow(unused)]
+    pub fn min_path_sum(mut grid: Vec<Vec<i32>>) -> i32 {
         if grid.len() < 1 { return 0; }
-        let rows = grid.len() as i32;
-        let cols = grid[0].len() as i32;
-        let mut cache: Vec<Vec<i32>> = vec![vec![-1 as i32; grid[0].len()]; grid.len()];
-        let answer =
-            Solution::dfs_min_sum_of_path(&grid, rows - 1, cols - 1, &mut cache);
-        return answer;
+        for row in 0..grid.len() {
+            for col in 0..grid[0].len() {
+                if row == 0 && col == 0 {
+                    continue;
+                }
+                let value_above = if row == 0 { std::i32::MAX } else { grid[row-1][col] };
+                let value_left = if col == 0 { std::i32::MAX } else { grid[row][col-1] };
+                grid[row][col] += std::cmp::min(value_above, value_left);
+            }
+        }
+        let rows = grid.len();
+        let cols = grid[0].len();
+        grid[rows-1][cols-1]
     }
 }
-
 
 #[cfg(test)]
 pub mod tests {
