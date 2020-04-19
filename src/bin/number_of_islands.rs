@@ -1,6 +1,8 @@
 struct Solution;
 
+#[allow(unused)]
 impl Solution {
+    #[allow(unused)]
     pub fn dfs_marker(mut grid: &mut Vec<Vec<char>>, i: usize, j: usize) {
         let deltas: Vec<(i32, i32)> = vec![
             (-1, 0),
@@ -25,6 +27,7 @@ impl Solution {
         }
     }
 
+    #[allow(unused)]
     pub fn num_islands(mut grid: Vec<Vec<char>>) -> i32 {
         if grid.len() < 1 {
             return 0;
@@ -58,4 +61,8 @@ pub mod tests {
         let actual = Solution::num_islands(test_case.0);
         assert_eq!(actual, test_case.1);
     }
+}
+
+pub fn main() {
+    println!("number_of_islands");
 }
