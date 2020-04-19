@@ -1,30 +1,27 @@
 
 struct Solution;
 
-use std::collections::HashMap;
 impl Solution {
     pub fn dfs_min_sum_of_path(
         grid: &Vec<Vec<i32>>,
         row: i32,
         col: i32,
-        cache: &mut HashMap<i32, i32>) -> i32 {
+        cache: &mut Vec<Vec<i32>>) -> i32 {
         if row < 0 || col < 0 {
             return std::i32::MAX;
         }
         if row == 0 && col == 0 {
             return grid[row as usize][col as usize];
         }
-        let cache_key= (row*(grid[0].len() as i32)) + col;
-        let answer = if let Some(already_computed_answer) =
-            cache.get(&cache_key) {
-            *already_computed_answer
+        let answer = if cache[row as usize][col as usize] != -1 {
+            cache[row as usize][col as usize]
         } else {
             let up = Solution::dfs_min_sum_of_path(grid, row-1, col, cache);
             let left = Solution::dfs_min_sum_of_path(grid, row, col-1, cache);
             let min = std::cmp::min(up, left);
 
             let cache_value = grid[row as usize][col as usize] + min;
-            cache.insert(cache_key, cache_value);
+            cache[row as usize][col as usize] = cache_value;
             cache_value
         };
         return answer;
@@ -34,7 +31,7 @@ impl Solution {
         if grid.len() < 1 { return 0; }
         let rows = grid.len() as i32;
         let cols = grid[0].len() as i32;
-        let mut cache: HashMap<i32, i32> = HashMap::new();
+        let mut cache: Vec<Vec<i32>> = vec![vec![-1 as i32; grid[0].len()]; grid.len()];
         let answer =
             Solution::dfs_min_sum_of_path(&grid, rows-1, cols-1, &mut cache);
         return answer;
