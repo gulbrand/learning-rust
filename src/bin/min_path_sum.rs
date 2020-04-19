@@ -1,4 +1,3 @@
-
 struct Solution;
 
 impl Solution {
@@ -13,18 +12,19 @@ impl Solution {
         if row == 0 && col == 0 {
             return grid[row as usize][col as usize];
         }
-        let answer = if cache[row as usize][col as usize] != -1 {
-            cache[row as usize][col as usize]
-        } else {
-            let up = Solution::dfs_min_sum_of_path(grid, row-1, col, cache);
-            let left = Solution::dfs_min_sum_of_path(grid, row, col-1, cache);
-            let min = std::cmp::min(up, left);
+        if cache[row as usize][col as usize] > 0 {
+            return cache[row as usize][col as usize];
+        }
 
-            let cache_value = grid[row as usize][col as usize] + min;
-            cache[row as usize][col as usize] = cache_value;
-            cache_value
-        };
-        return answer;
+        let answer =
+            grid[row as usize][col as usize]
+                +
+                std::cmp::min(
+                    Solution::dfs_min_sum_of_path(grid, row - 1, col, cache),
+                    Solution::dfs_min_sum_of_path(grid, row, col - 1, cache));
+
+        cache[row as usize][col as usize] = answer;
+        answer
     }
 
     pub fn min_path_sum(grid: Vec<Vec<i32>>) -> i32 {
@@ -33,7 +33,7 @@ impl Solution {
         let cols = grid[0].len() as i32;
         let mut cache: Vec<Vec<i32>> = vec![vec![-1 as i32; grid[0].len()]; grid.len()];
         let answer =
-            Solution::dfs_min_sum_of_path(&grid, rows-1, cols-1, &mut cache);
+            Solution::dfs_min_sum_of_path(&grid, rows - 1, cols - 1, &mut cache);
         return answer;
     }
 }
