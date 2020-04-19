@@ -5,53 +5,39 @@ use std::collections::HashMap;
 impl Solution {
     pub fn dfs_min_sum_of_path(
         grid: &Vec<Vec<i32>>,
-        row: usize,
-        col: usize,
-        cache: &mut HashMap<usize, i32>) -> Option<i32> {
-        if row == 0 && col == 0 {
-            return Some(grid[row][col]);
+        row: i32,
+        col: i32,
+        cache: &mut HashMap<i32, i32>) -> i32 {
+        if row < 0 || col < 0 {
+            return std::i32::MAX;
         }
-        let cache_key= (row*grid[0].len()) + col;
+        if row == 0 && col == 0 {
+            return grid[row as usize][col as usize];
+        }
+        let cache_key= (row*(grid[0].len() as i32)) + col;
         let answer = if let Some(already_computed_answer) =
             cache.get(&cache_key) {
-            Some(*already_computed_answer)
+            *already_computed_answer
         } else {
-            let up =
-                if row >= 1 { Solution::dfs_min_sum_of_path(grid, row-1, col, cache) }
-                else { None };
-            let left =
-                if col >= 1 { Solution::dfs_min_sum_of_path(grid, row, col-1, cache) }
-                else { None };
+            let up = Solution::dfs_min_sum_of_path(grid, row-1, col, cache);
+            let left = Solution::dfs_min_sum_of_path(grid, row, col-1, cache);
+            let min = std::cmp::min(up, left);
 
-            let min =
-                if up.is_some() && left.is_some() {
-                    std::cmp::min(up.unwrap(), left.unwrap())
-                } else if up.is_some() {
-                    up.unwrap()
-                } else if left.is_some() {
-                    left.unwrap()
-                } else {
-                    0
-                };
-
-            let cache_value = grid[row][col] + min;
+            let cache_value = grid[row as usize][col as usize] + min;
             cache.insert(cache_key, cache_value);
-            Some(cache_value)
+            cache_value
         };
         return answer;
     }
 
     pub fn min_path_sum(grid: Vec<Vec<i32>>) -> i32 {
         if grid.len() < 1 { return 0; }
-        let rows = grid.len();
-        let cols = grid[0].len();
-        let mut cache: HashMap<usize, i32> = HashMap::new();
-        return if let Some(answer) =
-            Solution::dfs_min_sum_of_path(&grid, rows-1, cols-1, &mut cache) {
-            answer
-        } else {
-            0
-        }
+        let rows = grid.len() as i32;
+        let cols = grid[0].len() as i32;
+        let mut cache: HashMap<i32, i32> = HashMap::new();
+        let answer =
+            Solution::dfs_min_sum_of_path(&grid, rows-1, cols-1, &mut cache);
+        return answer;
     }
 }
 
