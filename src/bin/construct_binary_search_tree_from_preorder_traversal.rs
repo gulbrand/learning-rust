@@ -25,16 +25,16 @@ struct Solution;
 #[allow(unused)]
 impl Solution {
     #[allow(unused)]
-    pub fn from_preorder(preorder: &mut Vec<i32>, min:i32, max: i32) -> Option<Rc<RefCell<TreeNode>>> {
-        if preorder.len() < 1 {
+    pub fn from_pre_order(pre_order: &mut Vec<i32>, min:i32, max: i32) -> Option<Rc<RefCell<TreeNode>>> {
+        if pre_order.len() < 1 {
             return None;
         }
-        if preorder[0] < min || preorder[0] > max {
+        if pre_order[0] < min || pre_order[0] > max {
             return None;
         }
-        let current = preorder.remove(0);
-        let mut left = Solution::from_preorder(preorder, min, current);
-        let mut right = Solution::from_preorder(preorder, current, max);
+        let current = pre_order.remove(0);
+        let mut left = Solution::from_pre_order(pre_order, min, current);
+        let mut right = Solution::from_pre_order(pre_order, current, max);
 
         let mut node = TreeNode {
             val: current,
@@ -47,11 +47,11 @@ impl Solution {
     }
 
     #[allow(unused)]
-    pub fn bst_from_preorder(mut preorder: Vec<i32>) -> Option<Rc<RefCell<TreeNode>>> {
+    pub fn bst_from_pre_order(mut pre_order: Vec<i32>) -> Option<Rc<RefCell<TreeNode>>> {
         let answer =
-            match preorder.len() {
+            match pre_order.len() {
                 0 => None,
-                _ => Solution::from_preorder(&mut preorder, std::i32::MIN, std::i32::MAX)
+                _ => Solution::from_pre_order(&mut pre_order, std::i32::MIN, std::i32::MAX)
             };
         return answer;
     }
@@ -75,7 +75,7 @@ pub mod tests {
 
     pub fn run_test(input: &mut Vec<i32>) {
         let test_input = input.to_vec();
-        let actual = Solution::bst_from_preorder(test_input);
+        let actual = Solution::bst_from_pre_order(test_input);
         let actual_pre_order = from_bst(actual);
         println!("{:?} vs {:?}", actual_pre_order, input.to_vec());
         assert_eq!(actual_pre_order, input.to_vec());
