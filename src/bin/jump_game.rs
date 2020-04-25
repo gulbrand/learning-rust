@@ -1,39 +1,54 @@
 struct Solution;
 
 impl Solution {
-    pub fn helper(nums: &[i32], required: i32) -> bool {
-        println!("{:?}, {}", nums, required);
-        if nums.len() < 3 {
-            return
-                (nums[1] >= required && nums[0] >= 1)
-            ||
-                    (nums[0] >= 1 && nums[0] >= required);
-        }
-        let second_to_last = nums[nums.len()-2];
-        if second_to_last < required {
-            if nums.len() < 1 {
-                return false;
+
+    pub fn bt_helper(nums: &Vec<i32>, index: usize, solution_found: &mut bool) {
+        // is this the end? did we find a solution or not?
+        // println!("{:?}, {}", nums, index);
+        if index >= nums.len()-1 {
+            *solution_found = true;
+        } else {
+            let mut next: Vec<usize> = Vec::new();
+            let jumps = nums[index];
+            for i in (1..jumps+1).rev() {
+                next.push(index+i as usize);
             }
-            return Solution::helper(&nums[..nums.len()-1], required+1);
+            // println!("next = {:?}", next);
+            for n in next {
+                Solution::bt_helper(nums, n, solution_found);
+                if *solution_found {
+                    return;
+                }
+            }
         }
-        return Solution::helper(&nums[..nums.len()-1], required-1);
     }
+
     pub fn can_jump(nums: Vec<i32>) -> bool {
-        if nums.len() < 2 {
-            return true;
-        }
-        if nums.len() < 3 {
-            return nums[0] >= 1;
-        }
-        return Solution::helper(&nums[..], 1);
+        let mut solution_found: bool = false;
+        Solution::bt_helper(&nums, 0, &mut solution_found);
+        return solution_found;
     }
 }
-
-
 
 #[cfg(test)]
 pub mod test {
     use crate::Solution;
+
+    #[test]
+    pub fn simple_test_0() {
+        let input = vec![0];
+        let expected: bool = true;
+        let actual = Solution::can_jump(input);
+        assert_eq!(actual, expected);
+    }
+
+    #[test]
+    pub fn simple_test_01() {
+        let input = vec![1,0];
+        let expected: bool = true;
+        let actual = Solution::can_jump(input);
+        assert_eq!(actual, expected);
+    }
 
     #[test]
     pub fn simple_test() {
