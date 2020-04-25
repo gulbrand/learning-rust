@@ -7,7 +7,7 @@ impl Solution {
             return true;
         }
         let max_jump_index = std::cmp::min(index + nums[index] as usize, nums.len() - 1);
-        for i in index+1..=max_jump_index {
+        for i in (index+1..=max_jump_index).rev() {
             if (Solution::can_reach_the_end(nums, i)) {
                 return true;
             }
