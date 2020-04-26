@@ -43,7 +43,7 @@ impl LinkedList {
                 let h = h.borrow();
                 let next = &h.next;
                 result = Some(h.val);
-                self.head = Some(next.unwrap());
+                // self.head = Some(next.unwrap());
             },
             None => {
                 result = None;
