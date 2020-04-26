@@ -10,21 +10,35 @@ impl Solution {
         None
     }
 
-    pub fn helper(a: &[u8], b: &[u8]) -> i32 {
+    pub fn helper(
+        a: &[u8],
+        b: &[u8],
+        answers: &mut Vec<Vec<Option<i32>>>,
+        i: usize,
+        j: usize) -> i32 {
         if a.len() == 0 || b.len() == 0 {
             return 0;
         }
-        let in_len = if let Some(index) = Solution::index_of(b, a[0])
-            { Solution::helper(&a[1..], &b[index..]) + 1 } else { 0 };
-        let out_len = Solution::helper(&a[1..], b);
-        return std::cmp::max(in_len, out_len);
+        if answers[i][j].is_none() {
+            let in_len =
+                if let Some(index) = Solution::index_of(b, a[0])
+                { Solution::helper(&a[1..], &b[index..], answers, i + 1, j + index) + 1 } else { 0 };
+            let out_len = Solution::helper(&a[1..], b, answers, i + 1, j);
+            answers[i][j] = Some(std::cmp::max(in_len, out_len));
+        }
+        return answers[i][j].unwrap();
     }
 
     pub fn longest_common_subsequence(text1: String, text2: String) -> i32 {
         let text1_bytes = text1.as_bytes();
         let text2_bytes = text2.as_bytes();
-        let mut max_common_subsequence = Solution::helper(text1_bytes, text2_bytes);
-        return max_common_subsequence;
+        let mut answers = vec![vec![None; text2_bytes.len()]; text1_bytes.len()];
+        return
+            Solution::helper(
+                text1_bytes,
+                text2_bytes,
+                &mut answers,
+                0, 0);
     }
 }
 
@@ -94,7 +108,6 @@ pub mod tests {
         let actual = Solution::longest_common_subsequence(input_a, input_b);
         assert_eq!(actual, expected);
     }
-
 }
 
 pub fn main() {
