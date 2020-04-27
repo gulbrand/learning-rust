@@ -1,7 +1,6 @@
-
-use std::rc::Rc;
 use std::cell::RefCell;
 use std::fmt::Debug;
+use std::rc::Rc;
 
 type NodePtr<T> = Option<Rc<RefCell<Node<T>>>>;
 
@@ -47,10 +46,11 @@ impl<T: Default+Debug+Copy> DoublyLinkedList<T> {
         }
     }
 
+    #[allow(unused)]
     pub fn insert_at_head(&mut self, t: T) {
         let mut new_node = Node::new(t);
         let mut new_head = self.head.as_ref();
-        if let Some(mut head) = &new_head {
+        if let Some(head) = &new_head {
             println!("it worked");
             println!("{:?}", head);
             // let head_borrow = head.borrow_mut();
@@ -67,6 +67,7 @@ impl<T: Default+Debug+Copy> DoublyLinkedList<T> {
 #[cfg(test)]
 pub mod doubly_linked_list_tests {
     use crate::DoublyLinkedList;
+
     #[test]
     pub fn first_insert() {
         let mut list: DoublyLinkedList<i32> = DoublyLinkedList::<i32>::new();
@@ -101,5 +102,5 @@ pub mod doubly_linked_list_tests {
 
 pub fn main() {
     println!("linked_list");
-    let list:DoublyLinkedList<i32> = DoublyLinkedList::new();
+    let _list: DoublyLinkedList<i32> = DoublyLinkedList::new();
 }

@@ -35,6 +35,7 @@ impl Solution {
         return answers[i][j].unwrap();
     }
 
+    #[allow(unused)]
     pub fn helper(
         a: &[u8],
         b: &[u8],
@@ -54,6 +55,7 @@ impl Solution {
         return answers[i][j].unwrap();
     }
 
+    #[allow(unused)]
     pub fn longest_common_subsequence(text1: String, text2: String) -> i32 {
         let text1_bytes = text1.as_bytes();
         let text2_bytes = text2.as_bytes();

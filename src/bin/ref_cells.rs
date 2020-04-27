@@ -1,6 +1,6 @@
 use std::cell::RefCell;
-use std::rc::Rc;
 use std::mem;
+use std::rc::Rc;
 
 type NodePtr = Option<Rc<RefCell<Node>>>;
 
@@ -16,14 +16,16 @@ struct LinkedList {
 }
 
 impl LinkedList {
+    #[allow(unused)]
     pub fn new() -> Self {
         LinkedList {
             head: None,
         }
     }
 
+    #[allow(unused)]
     pub fn insert(&mut self, val: i32) {
-        let mut new_node =
+        let new_node =
             Some(
                 Rc::new(
                     RefCell::new(
@@ -31,11 +33,12 @@ impl LinkedList {
                             val,
                             next: mem::replace(
                                 &mut self.head,
-                                None)
+                                None),
                         })));
         self.head = new_node;
     }
 
+    #[allow(unused)]
     pub fn pop(&mut self) -> Option<i32> {
         let result;
         match mem::replace(&mut self.head, None) {
@@ -60,11 +63,11 @@ impl LinkedList {
 
 #[cfg(test)]
 pub mod tests {
-
-    use std::rc::Rc;
     use std::cell::RefCell;
     use std::ops::Deref;
-    use crate::{Node, LinkedList};
+    use std::rc::Rc;
+
+    use crate::{LinkedList, Node};
 
     #[test]
     pub fn simple_linked_list_test() {

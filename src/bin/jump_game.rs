@@ -1,9 +1,9 @@
+use std::collections::HashSet;
 
 struct Solution;
 
-use std::collections::{HashSet, HashMap};
 impl Solution {
-
+    #[allow(unused)]
     pub fn can_reach_the_end(nums: &Vec<i32>, index: usize, learned_false: &mut HashSet<usize>) -> bool {
         if learned_false.contains(&index) {
             return false;
@@ -22,6 +22,7 @@ impl Solution {
         return false;
     }
 
+    #[allow(unused)]
     pub fn can_reach_the_end_bottom_up(nums: &Vec<i32>) -> bool {
         let mut memo = vec![false; nums.len()];
         memo[nums.len()-1] = true;
@@ -48,6 +49,7 @@ impl Solution {
         return left_most_that_can == 0;
     }
 
+    #[allow(unused)]
     pub fn can_jump(nums: Vec<i32>) -> bool {
         if nums.len() < 1 {
             return true;
