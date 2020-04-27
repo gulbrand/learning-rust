@@ -10,6 +10,31 @@ impl Solution {
         None
     }
 
+    pub fn helper_simpler(
+        a: &[u8],
+        b: &[u8],
+        answers: &mut Vec<Vec<Option<i32>>>,
+        i: usize,
+        j: usize
+    ) -> i32 {
+        if i >= a.len() || j >= b.len() {
+            return 0;
+        }
+        if answers[i][j].is_none() {
+            let answer =
+                if a[i] == b[j] {
+                    1 + Solution::helper_simpler(a, b, answers, i+1, j+1)
+                } else {
+                    std::cmp::max(
+                        Solution::helper_simpler(a, b, answers, i, j+1),
+                        Solution::helper_simpler(a, b, answers, i+1, j)
+                    )
+                };
+            answers[i][j] = Some(answer);
+        }
+        return answers[i][j].unwrap();
+    }
+
     pub fn helper(
         a: &[u8],
         b: &[u8],
@@ -34,7 +59,7 @@ impl Solution {
         let text2_bytes = text2.as_bytes();
         let mut answers = vec![vec![None; text2_bytes.len()]; text1_bytes.len()];
         return
-            Solution::helper(
+            Solution::helper_simpler(
                 text1_bytes,
                 text2_bytes,
                 &mut answers,
