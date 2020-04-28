@@ -25,7 +25,13 @@ impl LinkedList {
 
     #[allow(unused)]
     pub fn insert(&mut self, val: i32) {
-        let new_node =
+        let h = &mut self.head;
+        if let mut head @ Some(_) = h {
+            println!("head contained something");
+            self.head = None;
+        } else {
+            println!("head did not contain anything");
+            self.head =
             Some(
                 Rc::new(
                     RefCell::new(
@@ -35,7 +41,9 @@ impl LinkedList {
                                 &mut self.head,
                                 None),
                         })));
-        self.head = new_node;
+        }
+        // let new_node =
+        // self.head = new_node;
     }
 
     #[allow(unused)]
@@ -61,6 +69,7 @@ impl LinkedList {
     }
 }
 
+
 #[cfg(test)]
 pub mod tests {
     use std::cell::RefCell;
@@ -68,6 +77,14 @@ pub mod tests {
     use std::rc::Rc;
 
     use crate::{LinkedList, Node};
+
+    #[test]
+    pub fn simple_ownership_test_001() {
+        let mut x = Box::new(1);
+        assert_eq!(*x, 1);
+        *x = 2;
+        assert_eq!(*x, 2);
+    }
 
     #[test]
     pub fn simple_linked_list_test() {
