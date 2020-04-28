@@ -72,8 +72,15 @@ pub mod tests {
     #[test]
     pub fn simple_linked_list_test() {
         let mut linked_list = LinkedList::new();
+        linked_list.insert(2);
         linked_list.insert(1);
-        linked_list.pop();
+        let popped = linked_list.pop();
+        assert!(popped.is_some());
+        assert_eq!(popped.unwrap(), 1);
+
+        let popped = linked_list.pop();
+        assert!(popped.is_some());
+        assert_eq!(popped.unwrap(), 2);
     }
 
     #[test]
