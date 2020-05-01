@@ -10,6 +10,22 @@ pub mod tests {
             print!("{}", c);
         }
     }
+
+    #[test]
+    fn for_loops_two() {
+        let words: [&'static str; 3] = ["I", "love", "Rust"];
+        let mut sentence: String = String::new();
+        for (i, word) in words.iter().enumerate() {
+            sentence.push_str(*word);
+            if i < words.len() - 1 {
+                sentence.push_str(" ");
+            }
+        }
+        println!("{:?}", words.join(" "));
+        // dbg!(&sentence);
+        // println!("{:?}", sentence);
+        // assert!(sentence == "I love Rust".to_string());
+    }
 }
 
 pub fn main() {
