@@ -55,9 +55,43 @@ pub mod tests {
     }
 
     #[test]
+    pub fn fastest_with_negative() {
+        let expected = 6;
+        let input = vec![vec![-1,2], vec![4,5], vec![1,2,3]];
+
+        let actual = FastestSolution::max_distance(input);
+        assert_eq!(actual, expected);
+    }
+
+    #[test]
     pub fn naive() {
         let expected = 4;
         let input = vec![vec![1,2,3], vec![4,5], vec![1,2,3]];
+
+        let actual = NaiveSolution::max_distance(input);
+        assert_eq!(actual, expected);
+    }
+
+    #[test]
+    pub fn naive_with_negative() {
+        let expected = 6;
+        let input = vec![vec![-1,2], vec![4,5], vec![1,2,3]];
+
+        let actual = NaiveSolution::max_distance(input);
+        assert_eq!(actual, expected);
+    }
+
+    #[test]
+    pub fn naive_longer() {
+        let expected = 8;
+        let input = vec![
+            vec![1,2,3],
+            vec![4,5],
+            vec![1,2,3],
+            vec![7,8,9],
+            vec![4,5],
+            vec![1,2]
+        ];
 
         let actual = NaiveSolution::max_distance(input);
         assert_eq!(actual, expected);
