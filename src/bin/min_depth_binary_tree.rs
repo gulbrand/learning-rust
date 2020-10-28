@@ -42,9 +42,9 @@ impl Solution {
                 continue;
             }
             let current = to_visit.pop_front();
-            nodes_this_level = nodes_this_level - 1;
             let current = current.unwrap();
             let current = current.borrow();
+            nodes_this_level = nodes_this_level - 1;
             if current.left.is_some() {
                 let left = current.left.as_ref().unwrap();
                 to_visit.push_back(left.clone());
